@@ -2,6 +2,7 @@ package com.br.effecta.workshopmongo.config;
 
 import com.br.effecta.workshopmongo.domain.Post;
 import com.br.effecta.workshopmongo.domain.User;
+import com.br.effecta.workshopmongo.dto.UserDTO;
 import com.br.effecta.workshopmongo.repository.PostRepository;
 import com.br.effecta.workshopmongo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,10 +35,11 @@ public class Instantiation implements CommandLineRunner {
         User alex = new User(null, "Alex Green", "alex@gmail.com");
         User bob = new User(null, "Bob Grey", "bob@gmail.com");
 
-        Post post1 = new Post(null, LocalDate.parse("10/01/2018", fmt), "Partiu viagem", "Vou viajar para São Paulo. Abraços!", maria);
-        Post post2 = new Post(null, LocalDate.parse("23/03/2018", fmt), "Bom dia", "Acordei feliz hoje!", maria);
-
         userRepository.saveAll(Arrays.asList(maria, alex, bob));
+
+        Post post1 = new Post(null, LocalDate.parse("10/01/2018", fmt), "Partiu viagem", "Vou viajar para São Paulo. Abraços!", new UserDTO(maria));
+        Post post2 = new Post(null, LocalDate.parse("23/03/2018", fmt), "Bom dia", "Acordei feliz hoje!", new UserDTO(maria));
+
         postRepository.saveAll(Arrays.asList(post1, post2));
     }
 }
