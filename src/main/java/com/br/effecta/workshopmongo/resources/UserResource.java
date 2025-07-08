@@ -1,5 +1,6 @@
 package com.br.effecta.workshopmongo.resources;
 
+import com.br.effecta.workshopmongo.domain.Post;
 import com.br.effecta.workshopmongo.domain.User;
 import com.br.effecta.workshopmongo.dto.UserDTO;
 import com.br.effecta.workshopmongo.services.UserService;
@@ -33,6 +34,12 @@ public class UserResource {
         User user = userService.findById(id);
         UserDTO userDTO = new UserDTO(user);
         return ResponseEntity.ok().body(userDTO);
+    }
+
+    @GetMapping(value = "/{id}/posts")
+    public ResponseEntity<List<Post>> findPosts(@PathVariable String id) {
+        User user = userService.findById(id);
+        return ResponseEntity.ok().body(user.getPosts());
     }
 
     @PostMapping
