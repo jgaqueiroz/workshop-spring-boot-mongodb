@@ -3,6 +3,7 @@ package com.br.effecta.workshopmongo.resources;
 import com.br.effecta.workshopmongo.domain.Post;
 import com.br.effecta.workshopmongo.domain.User;
 import com.br.effecta.workshopmongo.dto.UserDTO;
+import com.br.effecta.workshopmongo.resources.util.URL;
 import com.br.effecta.workshopmongo.services.PostService;
 import com.br.effecta.workshopmongo.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,5 +31,12 @@ public class PostResource {
     public ResponseEntity<Post> findById(@PathVariable String id) {
         Post post = postService.findById(id);
         return ResponseEntity.ok().body(post);
+    }
+
+    @GetMapping(value = "/searchtitle")
+    public ResponseEntity<List<Post>> findByTitle(@RequestParam(value = "text", defaultValue = "") String text) {
+        text = URL.decodeParam(text);
+        List<Post> list = postService.findByTitle(text);
+        return ResponseEntity.ok().body(list);
     }
 }

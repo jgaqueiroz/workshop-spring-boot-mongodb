@@ -1,7 +1,6 @@
 package com.br.effecta.workshopmongo.services;
 
 import com.br.effecta.workshopmongo.domain.Post;
-import com.br.effecta.workshopmongo.domain.User;
 import com.br.effecta.workshopmongo.repository.PostRepository;
 import com.br.effecta.workshopmongo.services.exception.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,5 +22,9 @@ public class PostService {
     public Post findById(String id) {
         Optional<Post> obj = postRepository.findById(id);
         return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado"));
+    }
+
+    public List<Post> findByTitle(String text) {
+        return postRepository.findByTitleContainingIgnoreCase(text);
     }
 }
